@@ -1,63 +1,40 @@
-# Conventions — Style, Naming, and Errors
+# Conventions — prop-man-1
 
-> **Template**. This document must be completed by every project that adopts SDD. It defines code style, naming, and project conventions.
->
-> If you are adopting SDD for the first time, read the **Example** first and then the [How to Complete This Document](#how-to-complete-this-document) section.
+> Style, naming, imports, errors, design tokens, and UI/copy conventions for prop-man-1.
 
 ---
 
 ## Language and Style
 
-- **Primary language**: TypeScript
-- **Strict mode / linter**: *(complete)*
-- **Formatter**: *(complete)*
-
-### Example
-
-- **Primary language**: TypeScript 5 with strict mode (`strict: true`).
-- **Linter**: ESLint with `eslint-plugin-svelte` and `@typescript-eslint/recommended-type-checked`.
-- **Formatter**: Prettier with 100-character line width.
+- **Primary language**: TypeScript 6.0 with strict mode (`strict: true`).
+- **Linter**: ESLint 9 with `@typescript-eslint` and `eslint-plugin-svelte`.
+- **Formatter**: Prettier 3 with 100-character line width.
 - **Minimum quality**: code with TypeScript errors or lint warnings is not merged without justification.
 
 ---
 
 ## Naming
 
-| Element | Convention | Example |
-|---|---|---|
-| Files | *(complete)* | `user-menu.ts` |
-| Components / classes | *(complete)* | `Button` |
-| Functions | *(complete)* | `sendNotification()` |
-| Constants | *(complete)* | `MAX_RETRY_COUNT` |
-| Types / interfaces | *(complete)* | `UserProfile` |
-| Domain modules | *(complete)* | `modules/sales/` |
-
-### Example
-
-| Element | Convention | Example |
-|---|---|---|
-| TypeScript files | kebab-case | `client-form.svelte`, `client.service.ts` |
-| Svelte components | PascalCase | `ClientForm.svelte` |
-| Classes / types | PascalCase | `ClientRepository`, `CreateClientInput` |
-| Functions | camelCase, verb first | `createClient()`, `formatCurrency()` |
-| Local constants | UPPER_SNAKE_CASE | `MAX_RETRY_COUNT` |
-| Boolean variables | `is`/`has`/`can` prefix | `isLoading`, `hasPermission` |
-| Domain modules | kebab-case, plural | `modules/clients/`, `modules/opportunities/` |
-| Files inside a module | `<entity>.<role>.ts` | `client.service.ts`, `client.repository.ts`, `client.policy.ts`, `client.types.ts` |
-| Tests | `<file>.test.ts` next to the file or in `tests/unit/` | `client.service.test.ts` |
-| Feature slugs | kebab-case, no accents, lowercase | `login-and-dashboard-layout` |
+| Element                   | Convention                                            | Example                                                           |
+| ------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------- |
+| TypeScript / Svelte files | kebab-case                                            | `property-form.svelte`, `property.service.ts`                     |
+| Svelte components         | PascalCase                                            | `PropertyForm.svelte`, `Button.svelte`                            |
+| Classes / types           | PascalCase                                            | `PropertyRepository`, `CreatePropertyInput`                       |
+| Functions                 | camelCase, verb first                                 | `createProperty()`, `formatCurrency()`                            |
+| Local constants           | UPPER_SNAKE_CASE                                      | `MAX_RETRY_COUNT`                                                 |
+| Boolean variables         | `is`/`has`/`can` prefix                               | `isLoading`, `hasPermission`                                      |
+| Domain modules            | kebab-case, plural                                    | `modules/properties/`, `modules/spaces/`                          |
+| Files inside a module     | `<entity>.<role>.ts`                                  | `property.service.ts`, `property.queries.ts`, `property.types.ts` |
+| Tests                     | `<file>.test.ts` next to the file or in `tests/unit/` | `property.service.test.ts`                                        |
+| Feature slugs             | kebab-case, no accents, lowercase                     | `property-onboarding`                                             |
 
 ---
 
 ## Imports
 
-Define the project's import order. Example:
-
 1. External libraries.
-2. Project aliases.
+2. Project aliases (`$lib/*`, `$app/*`).
 3. Local relative imports.
-
-### Example
 
 ```typescript
 // 1. External libraries
@@ -65,12 +42,12 @@ import { z } from 'zod';
 import type { PageServerLoad } from './$types';
 
 // 2. Project aliases ($lib/*)
-import { db } from '$lib/server/db';
-import { UnauthorizedError } from '$lib/shared/errors';
+import { db } from '$lib/instantdb/client';
+import { UnauthorizedError } from '$lib/utils/errors';
 
 // 3. Local relative imports (same module)
-import { clientSchema } from './client.schema';
-import type { Client } from './client.types';
+import { propertySchema } from './property.schema';
+import type { Property } from './property.types';
 ```
 
 Additional rules:
@@ -83,46 +60,44 @@ Additional rules:
 
 ## Errors
 
-- Use named exceptions or typed results. Do not return `null` for domain errors.
-- In UI, display error messages in the project's agreed language.
+- Use named exceptions for domain errors. Do not return `null` for domain failures.
+- In UI, display error messages in neutral English.
 - Do not log sensitive data (PII).
 
-### Example
-
-Named domain errors:
+### Named domain errors
 
 ```typescript
-// $lib/shared/errors.ts
+// $lib/utils/errors.ts
 export class DomainError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'DomainError';
-  }
+	constructor(message: string) {
+		super(message);
+		this.name = 'DomainError';
+	}
 }
 
-export class NotFoundError extends DomainError {
-  constructor(resource: string, id: string) {
-    super(`${resource} not found: ${id}`);
-    this.name = 'NotFoundError';
-  }
+export class NotFoundError extends Error {
+	constructor(resource: string, id: string) {
+		super(`${resource} not found: ${id}`);
+		this.name = 'NotFoundError';
+	}
 }
 
-export class PermissionDeniedError extends DomainError {
-  constructor(action: string) {
-    super(`You do not have permission to ${action}.`);
-    this.name = 'PermissionDeniedError';
-  }
+export class PermissionDeniedError extends Error {
+	constructor(action: string) {
+		super(`You do not have permission to ${action}.`);
+		this.name = 'PermissionDeniedError';
+	}
 }
 ```
 
 Usage in services:
 
 ```typescript
-export async function getClientById(user: User, id: string): Promise<Client> {
-  const client = await clientRepository.findById(id);
-  if (!client) throw new NotFoundError('Client', id);
-  if (!canReadClient(user, client)) throw new PermissionDeniedError('view this client');
-  return client;
+export async function getPropertyById(user: User, id: string): Promise<Property> {
+	const property = await propertyQueries.findById(id);
+	if (!property) throw new NotFoundError('Property', id);
+	if (!canReadProperty(user, property)) throw new PermissionDeniedError('view this property');
+	return property;
 }
 ```
 
@@ -130,11 +105,11 @@ UI:
 
 ```svelte
 {#if error instanceof PermissionDeniedError}
-  <Alert variant="error">{error.message}</Alert>
+	<Alert variant="error">{error.message}</Alert>
 {:else if error instanceof NotFoundError}
-  <Alert variant="error">The requested client does not exist.</Alert>
+	<Alert variant="error">The requested property does not exist.</Alert>
 {:else}
-  <Alert variant="error">An unexpected error occurred. Please try again.</Alert>
+	<Alert variant="error">An unexpected error occurred. Please try again.</Alert>
 {/if}
 ```
 
@@ -142,39 +117,28 @@ UI:
 
 ## Design Tokens
 
-Capture the project's color palette, typography, and spacing here so designers do not use generic defaults. The Tech Lead fills this section during project setup.
-
-- **Primary color**: *(complete, e.g. `#3B82F6`)*
-- **Secondary / accent color**: *(complete, e.g. `#F59E0B`)*
-- **Background color(s)**: *(complete, e.g. `#FFFFFF` / `#0F172A`)*
-- **Text color(s)**: *(complete, e.g. `#111827` / `#F8FAFC`)*
-- **Success color**: *(complete, e.g. `#22C55E`)*
-- **Warning color**: *(complete, e.g. `#EAB308`)*
-- **Error color**: *(complete, e.g. `#EF4444`)*
-- **Font family**: *(complete, e.g. `Inter` or `Geist` — Pencil.dev only accepts a single font family, not a CSS stack)*
-- **Base spacing unit**: *(complete, e.g. `0.25rem` / `4px`)*
-
-### Example
-
-| Token | Value | Usage |
-|---|---|---|
-| Primary | `#3B82F6` | Buttons, links, active states |
-| Background | `#FFFFFF` | Page background |
-| Surface | `#F8FAFC` | Cards, panels |
-| Text primary | `#111827` | Headings, body text |
-| Text secondary | `#6B7280` | Captions, placeholders |
-| Success | `#22C55E` | Success messages, confirmations |
-| Warning | `#EAB308` | Warnings, pending states |
-| Error | `#EF4444` | Errors, destructive actions |
-| Font | `Inter` | All UI text |
-| Spacing unit | `4px` | Margins, paddings, gaps |
+| Token          | Value     | Usage                                        |
+| -------------- | --------- | -------------------------------------------- |
+| Primary        | `#F97316` | Buttons, links, active states, brand accents |
+| Accent         | `#F59E0B` | Highlights, badges, secondary actions        |
+| Background     | `#FFFFFF` | Page background                              |
+| Surface        | `#F8FAFC` | Cards, panels, input backgrounds             |
+| Text primary   | `#111827` | Headings, body text                          |
+| Text secondary | `#6B7280` | Captions, placeholders, helper text          |
+| Success        | `#16A34A` | Success messages, confirmations              |
+| Warning        | `#F59E0B` | Warnings, pending states                     |
+| Error          | `#DC2626` | Errors, destructive actions                  |
+| Font           | `Inter`   | All UI text (single font family)             |
+| Spacing unit   | `8px`     | Margins, paddings, gaps (0.5rem)             |
+| Radius base    | `8px`     | Cards, buttons, inputs                       |
+| Radius full    | `9999px`  | Pills, avatars                               |
 
 ---
 
 ## Design System
 
-- **UI primitives library**: *(complete, e.g. shadcn-svelte, Bits UI, Tailwind UI, Radix UI, Material UI)*
-- **Pencil Design System file**: default `sdd/design-system/design-system.pen`. If the project uses a shared Pencil file, the Design System lives as a dedicated page/frame inside that file.
+- **UI primitives library**: Bits UI 2.18 (headless Svelte components).
+- **Pencil Design System file**: `sdd/design-system/design-system.pen`.
 - **How the Design System is created**:
   - The Tech Lead creates **only an empty, valid Pencil file** at `sdd/design-system/design-system.pen` (content: `{"version": "2.13", "children": []}`).
   - The Tech Lead asks the human to open the file in the Pencil desktop app or VS Code extension and to populate it using the Pencil MCP server.
@@ -182,9 +146,9 @@ Capture the project's color palette, typography, and spacing here so designers d
   - Neither the Tech Lead nor the Designer writes the Design System `.pen` content manually or via raw JSON generation.
 - **Design System contents** (must be complete before feature design begins):
   - **Foundations** (stored as Pencil `variables` and visualized with valid Pencil nodes):
-    - Colors: primary, secondary/accent, background, surface, text, success, warning, error.
-    - Typography: one font family only (Pencil.dev only accepts a single value, e.g. `Inter` or `Geist`), type scale, weights, line heights.
-    - Spacing: base unit and scale.
+    - Colors: primary `#F97316`, accent `#F59E0B`, background `#FFFFFF`, surface `#F8FAFC`, text `#111827`, text-secondary `#6B7280`, success `#16A34A`, warning `#F59E0B`, error `#DC2626`.
+    - Typography: one font family only — `Inter`, type scale (Heading XL/LG/MD/SM, Body, Body Small, Caption), weights, line heights.
+    - Spacing: base unit `8px` and scale.
     - Radius: corner radius scale.
   - **Primitive/base components** (each is a `frame` with `reusable: true`, with variants/frames for default, hover, active, disabled, focus, error, and success states):
     - Button
@@ -195,10 +159,10 @@ Capture the project's color palette, typography, and spacing here so designers d
     - Avatar
     - Badge
     - Loading
-    - Textarea, Select, Alert, Label (when the UI primitives library provides them).
+    - Textarea, Select, Alert, Label (Bits UI provides these primitives).
 - The Design System must exist in Pencil **before** any feature-specific visual design.
 - Feature designs reuse the Design System primitives; new primitives are added to the Design System only when a feature genuinely needs them.
-- Developers implement UI using the project's chosen UI primitives library, styled to match the Pencil Design System exactly.
+- Developers implement UI using Bits UI primitives, styled to match the Pencil Design System exactly.
 - **Feature views do NOT live in `design-system.pen`**. Each feature has its own Pencil file at `sdd/features/<feature-slug>/design/assets/<feature-slug>.pen`, built from the Design System primitives.
 
 ### Design System MCP Guide
@@ -208,7 +172,7 @@ This guide is for the human (or the designer agent assisting via MCP). It replac
 **Prerequisites**
 
 - Pencil desktop app or VS Code extension installed.
-- Pencil MCP server configured in Spectre (`sdd/tech-stack.md` records the MCP name).
+- Pencil MCP server configured in Spectre (`sdd/tech-stack.md` records the MCP name: `pencil-mcp`).
 - The empty `sdd/design-system/design-system.pen` file is open in Pencil.
 
 **Step 1 — Create the document variables**
@@ -217,33 +181,31 @@ Using the MCP `set_variables` tool (or the Pencil variables panel), create these
 
 ```json
 {
-  "color.primary": { "type": "color", "value": "#3B82F6" },
-  "color.accent": { "type": "color", "value": "#F59E0B" },
-  "color.background": { "type": "color", "value": "#FFFFFF" },
-  "color.surface": { "type": "color", "value": "#F8FAFC" },
-  "color.text": { "type": "color", "value": "#111827" },
-  "color.text-secondary": { "type": "color", "value": "#6B7280" },
-  "color.success": { "type": "color", "value": "#22C55E" },
-  "color.warning": { "type": "color", "value": "#EAB308" },
-  "color.error": { "type": "color", "value": "#EF4444" },
-  "font.family": { "type": "string", "value": "Inter" },
-  "space.1": { "type": "number", "value": 4 },
-  "space.2": { "type": "number", "value": 8 },
-  "space.3": { "type": "number", "value": 12 },
-  "space.4": { "type": "number", "value": 16 },
-  "space.5": { "type": "number", "value": 20 },
-  "space.6": { "type": "number", "value": 24 },
-  "space.8": { "type": "number", "value": 32 },
-  "radius.none": { "type": "number", "value": 0 },
-  "radius.small": { "type": "number", "value": 4 },
-  "radius.base": { "type": "number", "value": 8 },
-  "radius.medium": { "type": "number", "value": 12 },
-  "radius.large": { "type": "number", "value": 16 },
-  "radius.full": { "type": "number", "value": 9999 }
+	"color.primary": { "type": "color", "value": "#F97316" },
+	"color.accent": { "type": "color", "value": "#F59E0B" },
+	"color.background": { "type": "color", "value": "#FFFFFF" },
+	"color.surface": { "type": "color", "value": "#F8FAFC" },
+	"color.text": { "type": "color", "value": "#111827" },
+	"color.text-secondary": { "type": "color", "value": "#6B7280" },
+	"color.success": { "type": "color", "value": "#16A34A" },
+	"color.warning": { "type": "color", "value": "#F59E0B" },
+	"color.error": { "type": "color", "value": "#DC2626" },
+	"font.family": { "type": "string", "value": "Inter" },
+	"space.1": { "type": "number", "value": 8 },
+	"space.2": { "type": "number", "value": 16 },
+	"space.3": { "type": "number", "value": 24 },
+	"space.4": { "type": "number", "value": 32 },
+	"space.5": { "type": "number", "value": 40 },
+	"space.6": { "type": "number", "value": 48 },
+	"space.8": { "type": "number", "value": 64 },
+	"radius.none": { "type": "number", "value": 0 },
+	"radius.small": { "type": "number", "value": 4 },
+	"radius.base": { "type": "number", "value": 8 },
+	"radius.medium": { "type": "number", "value": 12 },
+	"radius.large": { "type": "number", "value": 16 },
+	"radius.full": { "type": "number", "value": 9999 }
 }
 ```
-
-Adjust the hex values to the project's palette from the **Design Tokens** section above. The font family must be exactly one value (e.g. `Inter`).
 
 **Step 2 — Create the Foundations frame**
 
@@ -257,7 +219,7 @@ Create a top-level `frame` named **Foundations** (`id: foundations`). Inside it 
 
 **Step 3 — Create primitive components**
 
-For each component (Button, Input, Card, Modal, Sheet, Avatar, Badge, Loading, and Textarea, Select, Alert, Label if applicable), create a top-level `frame` with `reusable: true`. Inside each component frame, create one child `frame` per state:
+For each component (Button, Input, Card, Modal, Sheet, Avatar, Badge, Loading, and Textarea, Select, Alert, Label), create a top-level `frame` with `reusable: true`. Inside each component frame, create one child `frame` per state:
 
 - default
 - hover
@@ -278,28 +240,28 @@ Each state frame contains the actual Pencil nodes that represent that component 
 
 ### Mapping Pencil → Code
 
-| Pencil artifact | Code source |
-|---|---|
-| Design tokens | CSS variables / Tailwind theme / design tokens file |
-| Primitive components | UI library primitives (shadcn, Bits UI, etc.) |
+| Pencil artifact              | Code source                                     |
+| ---------------------------- | ----------------------------------------------- |
+| Design tokens                | CSS variables in `src/app.css` / Tailwind theme |
+| Primitive components         | Bits UI primitives                              |
 | Composite/feature components | Built from primitives, styled per Pencil frames |
-| Layout patterns | Reused from Design System page frames |
+| Layout patterns              | Reused from Design System page frames           |
 
 ## Visual Design Files
 
-- **Default tool**: Pencil.dev, connected via MCP.
+- **Default tool**: Pencil.dev, connected via MCP (`pencil-mcp`).
 - **Pencil file per feature**: `sdd/features/<feature-slug>/design/assets/<feature-slug>.pen`.
-- **Pencil Design System file**: `sdd/design-system/design-system.pen` (or shared Pencil file page).
-- The `.pen` file is JSON-based and must be tracked in Git. It must be a valid Pencil document using the native Pencil schema (e.g. `{"version": "2.13", "children": [...]}`). Do not use custom root schemas with fields like `tokens`, `primitives`, `layouts`, or `breakpoints`; document design tokens in this file and in `sdd/design-system/README.md` instead.
+- **Pencil Design System file**: `sdd/design-system/design-system.pen`.
+- The `.pen` file is JSON-based and must be tracked in Git. It must be a valid Pencil document using the native Pencil schema (`{"version": "2.13", "children": [...]}`). Do not use custom root schemas with fields like `tokens`, `primitives`, `layouts`, or `breakpoints`; document design tokens in this file and in `sdd/design-system/README.md` instead.
 - **Only use valid Pencil node types** (see [Pencil Format Reference](#pencil-format-reference) below). Do not invent types such as `page`, `color-swatch`, `text-style`, `spacing-token`, `radius-token`, or `component`.
 - Every new screen or component must exist in Pencil.dev before implementation begins.
 - The Issue `[Design]` records frame/view identifiers, reusable component names, and design tokens so developers can replicate the design in code.
 
 ### Pencil Format Reference
 
-This section prevents invalid `.pen` files. Consult https://docs.pencil.dev/for-developers/the-pen-format for the full specification.
+Consult https://docs.pencil.dev/for-developers/the-pen-format for the full specification.
 
-**Valid node `type` values** (use only these; anything else will fail to open in Pencil):
+**Valid node `type` values** (use only these):
 
 ```text
 frame, group, rectangle, ellipse, polygon, path, text,
@@ -310,71 +272,69 @@ note, prompt, context, icon, script, ref
 
 ```json
 {
-  "version": "2.13",
-  "variables": {
-    "color.primary": { "type": "color", "value": "#3B82F6" },
-    "color.accent": { "type": "color", "value": "#F59E0B" },
-    "color.background": { "type": "color", "value": "#FFFFFF" },
-    "color.surface": { "type": "color", "value": "#F8FAFC" },
-    "color.text": { "type": "color", "value": "#111827" },
-    "color.text-secondary": { "type": "color", "value": "#6B7280" },
-    "color.success": { "type": "color", "value": "#22C55E" },
-    "color.warning": { "type": "color", "value": "#EAB308" },
-    "color.error": { "type": "color", "value": "#EF4444" },
-    "font.family": { "type": "string", "value": "Inter" },
-    "space.1": { "type": "number", "value": 4 },
-    "space.2": { "type": "number", "value": 8 },
-    "space.3": { "type": "number", "value": 12 },
-    "space.4": { "type": "number", "value": 16 },
-    "radius.base": { "type": "number", "value": 8 }
-  },
-  "children": [
-    {
-      "id": "foundations",
-      "type": "frame",
-      "name": "Foundations",
-      "x": 0,
-      "y": 0,
-      "width": 1200,
-      "height": 800,
-      "children": [
-        {
-          "id": "colors-frame",
-          "type": "frame",
-          "name": "Colors",
-          "x": 0,
-          "y": 0,
-          "width": 560,
-          "height": 360,
-          "children": [
-            {
-              "id": "primary-swatch",
-              "type": "rectangle",
-              "name": "Primary",
-              "x": 16,
-              "y": 16,
-              "width": 48,
-              "height": 48,
-              "fill": "$color.primary",
-              "cornerRadius": 8
-            },
-            {
-              "id": "primary-label",
-              "type": "text",
-              "name": "Primary label",
-              "x": 80,
-              "y": 16,
-              "width": 200,
-              "height": 24,
-              "content": "Primary",
-              "fontFamily": "$font.family",
-              "fontSize": 14
-            }
-          ]
-        }
-      ]
-    }
-  ]
+	"version": "2.13",
+	"variables": {
+		"color.primary": { "type": "color", "value": "#F97316" },
+		"color.accent": { "type": "color", "value": "#F59E0B" },
+		"color.background": { "type": "color", "value": "#FFFFFF" },
+		"color.surface": { "type": "color", "value": "#F8FAFC" },
+		"color.text": { "type": "color", "value": "#111827" },
+		"color.text-secondary": { "type": "color", "value": "#6B7280" },
+		"color.success": { "type": "color", "value": "#16A34A" },
+		"color.warning": { "type": "color", "value": "#F59E0B" },
+		"color.error": { "type": "color", "value": "#DC2626" },
+		"font.family": { "type": "string", "value": "Inter" },
+		"space.1": { "type": "number", "value": 8 },
+		"space.2": { "type": "number", "value": 16 },
+		"radius.base": { "type": "number", "value": 8 }
+	},
+	"children": [
+		{
+			"id": "foundations",
+			"type": "frame",
+			"name": "Foundations",
+			"x": 0,
+			"y": 0,
+			"width": 1200,
+			"height": 800,
+			"children": [
+				{
+					"id": "colors-frame",
+					"type": "frame",
+					"name": "Colors",
+					"x": 0,
+					"y": 0,
+					"width": 560,
+					"height": 360,
+					"children": [
+						{
+							"id": "primary-swatch",
+							"type": "rectangle",
+							"name": "Primary",
+							"x": 16,
+							"y": 16,
+							"width": 48,
+							"height": 48,
+							"fill": "$color.primary",
+							"cornerRadius": 8
+						},
+						{
+							"id": "primary-label",
+							"type": "text",
+							"name": "Primary label",
+							"x": 80,
+							"y": 16,
+							"width": 200,
+							"height": 24,
+							"content": "Primary",
+							"fontFamily": "$font.family",
+							"fontSize": 14
+						}
+					]
+				}
+			]
+		}
+	]
 }
 ```
 
@@ -394,15 +354,9 @@ note, prompt, context, icon, script, ref
 
 ## UI and Copy
 
-- **UI language**: *(complete)*
-- **Date, number, and time formats**: *(complete)*
-- **Breakpoints / responsive**: *(complete)*
-
-### Example
-
 - **UI language**: neutral English (no slang, no regionalisms). Error messages must be clear and action-oriented.
-- **Dates**: `dd/MM/yyyy` for forms; `15 Jun 2025` for lists; ISO 8601 (`YYYY-MM-DDTHH:mm:ssZ`) in APIs.
-- **Currency**: `$ 1,234.56` (USD, comma thousands separator, dot decimal separator).
+- **Dates**: `YYYY-MM-DD` in APIs and storage; `15 Jun 2025` for display lists; `dd/MM/yyyy` for forms.
+- **Currency**: displayed as `$1,234.56` (USD, comma thousands separator, dot decimal separator) when needed.
 - **Breakpoints**:
   - `sm`: 640px
   - `md`: 768px
@@ -424,23 +378,11 @@ note, prompt, context, icon, script, ref
 
 ## Project Setup Completion
 
-This section is used by the Orchestrator to decide whether the project setup gate is complete. Do not remove it.
-
-- [ ] **Language and Style** section has real tools (no `*(complete)*` placeholders).
-- [ ] **Naming** table has real conventions for the project's stack.
-- [ ] **Imports** order and aliases are defined.
-- [ ] **Errors** strategy is chosen and documented with examples.
-- [ ] **Design Tokens** section has real colors, typography, and spacing values.
-- [ ] **Design System** section records the UI primitives library and the Pencil Design System file path.
-- [ ] **Visual Design Files** section records the Pencil file location and MCP configuration.
-- [ ] **UI and Copy** section has actual language, formats, and breakpoints.
-
-## How to Complete This Document
-
-1. Replace the "*(complete)*" fields in **Language and Style** with the project's actual tools.
-2. Adapt the **Naming** table to your stack and existing conventions.
-3. Define the **Imports** order and aliases used by the project.
-4. Choose an **Errors** strategy (exceptions, typed results, or both) and document it with examples.
-5. Complete **UI and Copy** with actual language, formats, and breakpoints.
-6. Remove sections marked as **Example** when the document is mature, or keep them as reference while the team adopts SDD.
-7. Check all boxes in the **Project Setup Completion** section above.
+- [x] **Language and Style** section has real tools (no `*(complete)*` placeholders).
+- [x] **Naming** table has real conventions for the project's stack.
+- [x] **Imports** order and aliases are defined.
+- [x] **Errors** strategy is chosen and documented with examples.
+- [x] **Design Tokens** section has real colors, typography, and spacing values.
+- [x] **Design System** section records the UI primitives library and the Pencil Design System file path.
+- [x] **Visual Design Files** section records the Pencil file location and MCP configuration.
+- [x] **UI and Copy** section has actual language, formats, and breakpoints.

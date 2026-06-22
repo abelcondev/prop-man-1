@@ -76,10 +76,10 @@ Each `R<n>` from the `[Design]` Issue must map to at least one concrete test.
 Example documentation in the `## Review` section:
 
 ```markdown
-| Requirement | Test file | Line | Status |
-|-----------|-----------|-------|--------|
-| R1 | tests/unit/clients/create.test.ts | 23 | ✅ |
-| R2 | — | — | ❌ MISSING |
+| Requirement | Test file                         | Line | Status     |
+| ----------- | --------------------------------- | ---- | ---------- |
+| R1          | tests/unit/clients/create.test.ts | 23   | ✅         |
+| R2          | —                                 | —    | ❌ MISSING |
 ```
 
 ---

@@ -27,9 +27,9 @@ Brief description of the business problem or opportunity.
 
 ## Risks
 
-| Risk | Impact | Mitigation |
-|---|---|---|
-| ... | high/medium/low | ... |
+| Risk | Impact          | Mitigation |
+| ---- | --------------- | ---------- |
+| ...  | high/medium/low | ...        |
 
 ## Issues
 

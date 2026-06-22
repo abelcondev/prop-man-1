@@ -15,18 +15,18 @@ A property management app where users can register, create properties, define sp
 
 ### Goals
 
-- *Goal 1 — what the product must achieve.*
-- *Goal 2 — what the product must achieve.*
+- _Goal 1 — what the product must achieve._
+- _Goal 2 — what the product must achieve._
 
 ### Functional requirements
 
-- `FR1` — *The system must ...*
-- `FR2` — *The system must ...*
+- `FR1` — _The system must ..._
+- `FR2` — _The system must ..._
 
 ### Non-functional requirements
 
-- `NFR1` — *Performance, security, scalability, or compliance need.*
-- `NFR2` — *Accessibility, localization, or operational requirement.*
+- `NFR1` — _Performance, security, scalability, or compliance need._
+- `NFR2` — _Accessibility, localization, or operational requirement._
 
 ### User stories
 
@@ -35,7 +35,7 @@ A property management app where users can register, create properties, define sp
 
 ### Release criteria
 
-- *Criterion that must be true for the product to be considered ready.*
+- _Criterion that must be true for the product to be considered ready._
 
 ## Problem
 
@@ -51,25 +51,25 @@ Keep all property, room, and supplier information organized and accessible in on
 
 ## Key Capabilities
 
-- *Capability 1 — to be refined as the product evolves.*
-- *Capability 2 — to be refined as the product evolves.*
+- _Capability 1 — to be refined as the product evolves._
+- _Capability 2 — to be refined as the product evolves._
 
 ## Out of Scope
 
-- *Explicitly out of scope for the product as a whole.*
+- _Explicitly out of scope for the product as a whole._
 
 ## Success Metrics
 
-- *Metric 1 — to be defined.*
-- *Metric 2 — to be defined.*
+- _Metric 1 — to be defined._
+- _Metric 2 — to be defined._
 
 ## Roadmap
 
-- *Future feature or milestone — create a real SDD project under `sdd/features/` when work starts.*
+- _Future feature or milestone — create a real SDD project under `sdd/features/` when work starts._
 
 ## Notes
 
-- *Additional product-level notes, constraints, or references.*
+- _Additional product-level notes, constraints, or references._
 
 ## Project Setup Gate
 

@@ -78,14 +78,14 @@ Screen/Action 1 → Screen/Action 2 → Final result
 
 - **Design System file**: `sdd/design-system/design-system.pen` (or shared Pencil file page recorded in `sdd/conventions.md`). This file holds the project foundations and base components only; feature views/screens go in the feature Pencil file below.
 - **Feature Pencil file**: `sdd/features/<feature-slug>/design/assets/<feature-slug>.pen` — where frames, views, and feature-specific components are created from the Design System primitives.
-- **UI primitives library**: *(e.g. shadcn-svelte, Bits UI, Tailwind UI)* — recorded in `sdd/conventions.md`
+- **UI primitives library**: _(e.g. shadcn-svelte, Bits UI, Tailwind UI)_ — recorded in `sdd/conventions.md`
 - **Primitives this feature reuses**: list the base components from the Design System that this feature uses (e.g. Button, Input, Card)
 - **Primitives this feature extends or adds**: list any new primitive that must be added to the Design System before feature design
 
 ### Pencil plan (filled in `design/spec-needed/`)
 
 - **Tool**: Pencil.dev (default; connected via MCP)
-- **MCP status**: *(configured / pending)*
+- **MCP status**: _(configured / pending)_
 - **Pencil file path**: `sdd/features/<feature-slug>/design/assets/<feature-slug>.pen` (default; update if the project uses a shared file)
 - **Frames / views to create**: list the Pencil frames and views this feature needs
 - **Components to create or reuse**: list reusable components to create in Pencil or reuse from the design system; every new component must map to a Design System primitive
@@ -115,9 +115,9 @@ After the functional spec is approved, create/update the Pencil file and record 
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation |
-|---|---|---|
-| ... | high/medium/low | ... |
+| Risk | Impact          | Mitigation |
+| ---- | --------------- | ---------- |
+| ...  | high/medium/low | ...        |
 
 ## Dependencies
 
@@ -125,9 +125,9 @@ After the functional spec is approved, create/update the Pencil file and record 
 
 ## Changelog
 
-| Date | Author | Change | Reason |
-|---|---|---|---|
-| YYYY-MM-DD | Name | Brief description of the change | Why it was made |
+| Date       | Author | Change                          | Reason          |
+| ---------- | ------ | ------------------------------- | --------------- |
+| YYYY-MM-DD | Name   | Brief description of the change | Why it was made |
 
 > Record structural or scope changes during the issue lifecycle.
 
@@ -136,7 +136,9 @@ After the functional spec is approved, create/update the Pencil file and record 
 ### Verdict: ✅ Approved / ❌ Rejected
 
 ### Findings
+
 1. ...
 
 ### Action items (if rejected)
+
 1. ...

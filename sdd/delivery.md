@@ -24,15 +24,15 @@ chore(sdd): login [Design] spec-needed → designing
 
 ### Common Types
 
-| Type | Use |
-|---|---|
-| `feat` | New functionality |
-| `fix` | Bug fix |
-| `test` | Tests (TDD: red commit) |
+| Type       | Use                                     |
+| ---------- | --------------------------------------- |
+| `feat`     | New functionality                       |
+| `fix`      | Bug fix                                 |
+| `test`     | Tests (TDD: red commit)                 |
 | `refactor` | Internal change without behavior change |
-| `chore` | Maintenance tasks, SDD state changes |
-| `docs` | Documentation |
-| `style` | Formatting, no logical change |
+| `chore`    | Maintenance tasks, SDD state changes    |
+| `docs`     | Documentation                           |
+| `style`    | Formatting, no logical change           |
 
 ### SDD State Commits
 
@@ -87,15 +87,18 @@ gh pr create \
 
 ```markdown
 ## Summary
+
 Brief description of the change.
 
 ## Traceability
-| Requirement | Test file | Status |
-|-----------|-----------|--------|
-| R1 | tests/integration/... | ✅ |
-| R2 | tests/unit/... | ✅ |
+
+| Requirement | Test file             | Status |
+| ----------- | --------------------- | ------ |
+| R1          | tests/integration/... | ✅     |
+| R2          | tests/unit/...        | ✅     |
 
 ## Checklist
+
 - [ ] `init.sh` passes in the worktree.
 - [ ] Minimum coverage reached.
 - [ ] No dependencies added without justification.
@@ -146,6 +149,7 @@ When a `[Dev]` Issue reaches `dev/done/`, the `orchestrator`:
    ```
 2. Updates `sdd/README.md` with the current project state.
 3. Adds a `## Closure` section at the end of the `[Dev]` Issue file:
+
    ```markdown
    ## Closure
 
@@ -153,6 +157,7 @@ When a `[Dev]` Issue reaches `dev/done/`, the `orchestrator`:
    - **Relevant decisions**: summary of `D<n>` that impacted architecture.
    - **Next steps**: derived issues or technical debt.
    ```
+
 4. Documents any relevant decision or pattern in `sdd/decisions/`.
 
 ---

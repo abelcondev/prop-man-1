@@ -66,7 +66,7 @@ git branch -D feature/<slug>
 3. If no lockfile exists, add a `packageManager` field to `package.json`:
    ```json
    {
-     "packageManager": "pnpm@10.0.0"
+   	"packageManager": "pnpm@10.0.0"
    }
    ```
 4. Run the install command manually in the worktree:

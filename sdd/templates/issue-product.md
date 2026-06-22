@@ -13,8 +13,8 @@ Business problem, opportunity, and user context.
 
 ## User Segments & Jobs-to-be-Done
 
-| Segment | Main job | Usage context |
-|---|---|---|
+| Segment   | Main job                 | Usage context         |
+| --------- | ------------------------ | --------------------- |
 | Segment A | "I want ... so that ..." | When/where it happens |
 
 ## Product Goals
@@ -63,9 +63,9 @@ Then <expected result>
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation |
-|---|---|---|
-| ... | high/medium/low | ... |
+| Risk | Impact          | Mitigation |
+| ---- | --------------- | ---------- |
+| ...  | high/medium/low | ...        |
 
 ## Dependencies
 
@@ -74,9 +74,9 @@ Then <expected result>
 
 ## Changelog
 
-| Date | Author | Change | Reason |
-|---|---|---|---|
-| YYYY-MM-DD | Name | Brief description of the change | Why it was made |
+| Date       | Author | Change                          | Reason          |
+| ---------- | ------ | ------------------------------- | --------------- |
+| YYYY-MM-DD | Name   | Brief description of the change | Why it was made |
 
 > Record structural or scope changes during the issue lifecycle.
 
@@ -85,7 +85,9 @@ Then <expected result>
 ### Verdict: ✅ Approved / ❌ Rejected
 
 ### Findings
+
 1. ...
 
 ### Action items (if rejected)
+
 1. ...

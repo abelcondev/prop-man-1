@@ -91,11 +91,11 @@ Each project defines its roles in `sdd/architecture.md`. Each feature must docum
 ```markdown
 ## Permissions
 
-| Action | Admin | Operator | Viewer |
-|---|---|---|---|
-| Create resource | ✅ | ✅ | ❌ |
-| View all resources | ✅ | ❌ | ❌ |
-| View my resources | ✅ | ✅ | ✅ |
+| Action             | Admin | Operator | Viewer |
+| ------------------ | ----- | -------- | ------ |
+| Create resource    | ✅    | ✅       | ❌     |
+| View all resources | ✅    | ❌       | ❌     |
+| View my resources  | ✅    | ✅       | ✅     |
 ```
 
 And each integration test must validate at least one denied access case.

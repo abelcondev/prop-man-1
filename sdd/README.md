@@ -10,22 +10,22 @@ This directory is the **source of truth** for this project's SDD flow.
 
 ## SDD Map
 
-| File | Purpose |
-|---|---|
-| `sdd/README.md` | This index. |
-| `sdd/product.md` | **Global product definition**. Vision, users, value proposition, and roadmap. |
-| `sdd/workflow.md` | States, workflow, worktrees, golden rules. |
-| `sdd/architecture.md` | **Template** for defining the project's stack, layers, and architectural decisions. |
-| `sdd/conventions.md` | **Template** for defining code style, naming, and project conventions. |
-| `sdd/quality-gates.md` | Definition of Ready/Done and C1–C7 checklist. |
-| `sdd/testing.md` | Testing strategy, TDD, fixtures, coverage. |
-| `sdd/security.md` | Security principles, RBAC, PII, compliance. |
-| `sdd/troubleshooting.md` | Guide to common SDD framework problems and solutions. |
-| `sdd/delivery.md` | Commits, PRs, merge, and closure. |
-| `sdd/decisions/` | Project ADRs (Architecture Decision Records). |
-| `sdd/templates/` | Templates for projects and issues. |
-| `sdd/templates/issue-product.md` | Template for the `[Product]` Issue (BDD, product goals, acceptance criteria). |
-| `sdd/features/` | Active projects and issues for individual features. |
+| File                             | Purpose                                                                             |
+| -------------------------------- | ----------------------------------------------------------------------------------- |
+| `sdd/README.md`                  | This index.                                                                         |
+| `sdd/product.md`                 | **Global product definition**. Vision, users, value proposition, and roadmap.       |
+| `sdd/workflow.md`                | States, workflow, worktrees, golden rules.                                          |
+| `sdd/architecture.md`            | **Template** for defining the project's stack, layers, and architectural decisions. |
+| `sdd/conventions.md`             | **Template** for defining code style, naming, and project conventions.              |
+| `sdd/quality-gates.md`           | Definition of Ready/Done and C1–C7 checklist.                                       |
+| `sdd/testing.md`                 | Testing strategy, TDD, fixtures, coverage.                                          |
+| `sdd/security.md`                | Security principles, RBAC, PII, compliance.                                         |
+| `sdd/troubleshooting.md`         | Guide to common SDD framework problems and solutions.                               |
+| `sdd/delivery.md`                | Commits, PRs, merge, and closure.                                                   |
+| `sdd/decisions/`                 | Project ADRs (Architecture Decision Records).                                       |
+| `sdd/templates/`                 | Templates for projects and issues.                                                  |
+| `sdd/templates/issue-product.md` | Template for the `[Product]` Issue (BDD, product goals, acceptance criteria).       |
+| `sdd/features/`                  | Active projects and issues for individual features.                                 |
 
 ---
 
@@ -70,8 +70,8 @@ This directory is the **source of truth** for this project's SDD flow.
 
 ## Active Projects Index
 
-| Feature | Product | Design | Dev | Worktree |
-|---|---|---|---|---|
-| *(none)* | — | — | — | — |
+| Feature  | Product | Design | Dev | Worktree |
+| -------- | ------- | ------ | --- | -------- |
+| _(none)_ | —       | —      | —   | —        |
 
 > For more detail, see `sdd/workflow.md`.

@@ -17,15 +17,15 @@ For the general SDD index, see `sdd/README.md`.
 
 ## 1.1 Roles
 
-| Role | Responsible for | SDD Phase |
-|---|---|---|
-| `orchestrator` | Create worktrees/branches, move issues between states, orchestrate subagents, human gates. | Whole cycle |
-| `tech_lead` | Project setup on `main`: stack selection, technology installation, MCP/doc registration, GitHub setup. | Project setup |
-| `product_manager` | Discovery, BDD, product goals, acceptance criteria, risks, scope. | `[Product]` |
-| `designer` | Functional spec, user flows, UI/UX, accessibility, design tokens, handoff to Dev. | `[Design]` |
-| `tech_specifier` | Technical spec, technical decisions, impact analysis, Test Plan. | `[Dev]` (spec) |
-| `developer` | Implementation with TDD, production code. | `[Dev]` (implementation) |
-| `auditor` | Verification against quality gates, security, approved design, and TDD. | `[Dev]` (review) |
+| Role              | Responsible for                                                                                        | SDD Phase                |
+| ----------------- | ------------------------------------------------------------------------------------------------------ | ------------------------ |
+| `orchestrator`    | Create worktrees/branches, move issues between states, orchestrate subagents, human gates.             | Whole cycle              |
+| `tech_lead`       | Project setup on `main`: stack selection, technology installation, MCP/doc registration, GitHub setup. | Project setup            |
+| `product_manager` | Discovery, BDD, product goals, acceptance criteria, risks, scope.                                      | `[Product]`              |
+| `designer`        | Functional spec, user flows, UI/UX, accessibility, design tokens, handoff to Dev.                      | `[Design]`               |
+| `tech_specifier`  | Technical spec, technical decisions, impact analysis, Test Plan.                                       | `[Dev]` (spec)           |
+| `developer`       | Implementation with TDD, production code.                                                              | `[Dev]` (implementation) |
+| `auditor`         | Verification against quality gates, security, approved design, and TDD.                                | `[Dev]` (review)         |
 
 > The `product_manager` and `designer` roles assist the human PM and Designer. The actual visual design is still done in the project's design tool; the `designer` agent structures the handoff.
 
@@ -72,12 +72,12 @@ sdd/
 
 ### Naming Conventions
 
-| Entity | Path | Title inside the file |
-|---|---|---|
-| Feature | `sdd/features/login-y-dashboard-layout/README.md` | `Login and Dashboard Layout` |
-| Issue Product | `sdd/features/login-y-dashboard-layout/product/discovery/login.md` | `[Product] Login` |
-| Issue Design | `sdd/features/login-y-dashboard-layout/design/spec-needed/login.md` | `[Design] Login` |
-| Issue Dev | `sdd/features/login-y-dashboard-layout/dev/backlog/login.md` | `[Dev] Login` |
+| Entity        | Path                                                                | Title inside the file        |
+| ------------- | ------------------------------------------------------------------- | ---------------------------- |
+| Feature       | `sdd/features/login-y-dashboard-layout/README.md`                   | `Login and Dashboard Layout` |
+| Issue Product | `sdd/features/login-y-dashboard-layout/product/discovery/login.md`  | `[Product] Login`            |
+| Issue Design  | `sdd/features/login-y-dashboard-layout/design/spec-needed/login.md` | `[Design] Login`             |
+| Issue Dev     | `sdd/features/login-y-dashboard-layout/dev/backlog/login.md`        | `[Dev] Login`                |
 
 Slugs use kebab-case, lowercase, no accents.
 
@@ -158,10 +158,10 @@ If any of these are missing, the orchestrator must launch `sdd-tech-lead` on `ma
 discovery → product-ready
 ```
 
-| Folder | Meaning |
-|---|---|
-| `product/discovery/` | Product behavior, users, and BDD scenarios are discovered and iterated. |
-| `product/product-ready/` | Product spec approved. The `[Design]` Issue may advance. |
+| Folder                   | Meaning                                                                 |
+| ------------------------ | ----------------------------------------------------------------------- |
+| `product/discovery/`     | Product behavior, users, and BDD scenarios are discovered and iterated. |
+| `product/product-ready/` | Product spec approved. The `[Design]` Issue may advance.                |
 
 ### Issue `[Design]`
 
@@ -169,11 +169,11 @@ discovery → product-ready
 spec-needed → designing → design-ready
 ```
 
-| Folder | Meaning |
-|---|---|
-| `design/spec-needed/` | Issue created, functional/UI spec missing. Blocked until `[Product]` is in `product-ready/`. |
-| `design/designing/` | Visual design is iterated in **Pencil.dev** via MCP. Frames, components, and views are created there and referenced in the Issue `[Design]` file. |
-| `design/design-ready/` | Design and spec approved. The `[Dev]` Issue may advance. |
+| Folder                 | Meaning                                                                                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `design/spec-needed/`  | Issue created, functional/UI spec missing. Blocked until `[Product]` is in `product-ready/`.                                                      |
+| `design/designing/`    | Visual design is iterated in **Pencil.dev** via MCP. Frames, components, and views are created there and referenced in the Issue `[Design]` file. |
+| `design/design-ready/` | Design and spec approved. The `[Dev]` Issue may advance.                                                                                          |
 
 ### Issue `[Dev]`
 
@@ -184,18 +184,18 @@ backlog → spec-needed → spec-ready → implementing → review → testing �
                                     cancelled
 ```
 
-| Folder | Meaning |
-|---|---|
-| `dev/backlog/` | Issue registered, blocked by `[Design]`. |
-| `dev/spec-needed/` | Technical spec missing. |
-| `dev/spec-ready/` | Technical spec complete. Awaiting human approval. |
-| `dev/implementing/` | Developer working in the worktree. |
-| `dev/blocked/` | Issue paused by external blocker or pending decision. |
-| `dev/review/` | Code ready. Auditor verifying. |
-| `dev/rejected/` | Auditor rejected. Requires rework before returning to `implementing/`. |
-| `dev/testing/` | Merged. Final validation. |
-| `dev/done/` | Feature completed and verified. |
-| `dev/cancelled/` | Issue discarded. Kept for traceability. |
+| Folder              | Meaning                                                                |
+| ------------------- | ---------------------------------------------------------------------- |
+| `dev/backlog/`      | Issue registered, blocked by `[Design]`.                               |
+| `dev/spec-needed/`  | Technical spec missing.                                                |
+| `dev/spec-ready/`   | Technical spec complete. Awaiting human approval.                      |
+| `dev/implementing/` | Developer working in the worktree.                                     |
+| `dev/blocked/`      | Issue paused by external blocker or pending decision.                  |
+| `dev/review/`       | Code ready. Auditor verifying.                                         |
+| `dev/rejected/`     | Auditor rejected. Requires rework before returning to `implementing/`. |
+| `dev/testing/`      | Merged. Final validation.                                              |
+| `dev/done/`         | Feature completed and verified.                                        |
+| `dev/cancelled/`    | Issue discarded. Kept for traceability.                                |
 
 ### Cross-Cutting States
 
@@ -219,7 +219,7 @@ Each feature has its own **isolated worktree** from the start. Inside the worktr
    - Empty structure at `sdd/features/<feature-slug>/`.
    - A generic scaffold `README.md` (to be completed inside the worktree).
    - A `design/assets/` folder where the Pencil `.pen` file for this feature will live.
-   No Issue `.md` files are created from `main`.
+     No Issue `.md` files are created from `main`.
 2. Switch to the worktree and start a new Spectre session there.
 3. The orchestrator detects the feature worktree, asks what feature to build, and creates the first Issue `[Product]`.
 4. Complete the project `README.md` and create issues as `.md` files inside state folders. Start with `[Product]`.
@@ -411,8 +411,8 @@ The SDD assumes the project uses a **visual design tool** as the reference for n
 
 ## 14. Active Features Index
 
-| Feature | Product | Design | Dev | Worktree |
-|---|---|---|---|---|
-| *(none)* | — | — | — | — |
+| Feature  | Product | Design | Dev | Worktree |
+| -------- | ------- | ------ | --- | -------- |
+| _(none)_ | —       | —      | —   | —        |
 
 > This index is updated manually.

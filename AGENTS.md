@@ -21,21 +21,21 @@ In every session, the orchestrator agent MUST:
 
 ## 2. Project map
 
-| Path/File | Content | When to read |
-|---|---|---|
-| `CLAUDE.md` | Role enforcer + minimal stack | At the start |
-| `AGENTS.md` | This file — map and hard rules | At the start |
-| `sdd/README.md` | SDD index | Before any work |
-| `sdd/workflow.md` | States, workflow, worktrees, golden rules | Before any work |
-| `sdd/architecture.md` | **Template** for stack and architectural decisions | Before implementing |
-| `sdd/conventions.md` | **Template** for style, naming, and language | Before writing code |
-| `sdd/quality-gates.md` | Definition of Ready/Done, checklist C1–C7 | Before declaring done |
-| `sdd/testing.md` | Testing strategy, TDD, fixtures, coverage | Before writing tests |
-| `sdd/security.md` | Security, RBAC, PII, compliance | Before implementing features with sensitive data |
-| `sdd/delivery.md` | Commits, PRs, merge, and closure | Before delivering |
-| `sdd/decisions/` | ADRs (Architecture Decision Records) | When architectural or product decisions are made |
-| `sdd/tech-stack.md` | Technology inventory, versions, MCPs, doc URLs | Before implementing |
-| `sdd/features/` | Local projects, issues, and specs | Source of truth for the SDD flow |
+| Path/File              | Content                                            | When to read                                     |
+| ---------------------- | -------------------------------------------------- | ------------------------------------------------ |
+| `CLAUDE.md`            | Role enforcer + minimal stack                      | At the start                                     |
+| `AGENTS.md`            | This file — map and hard rules                     | At the start                                     |
+| `sdd/README.md`        | SDD index                                          | Before any work                                  |
+| `sdd/workflow.md`      | States, workflow, worktrees, golden rules          | Before any work                                  |
+| `sdd/architecture.md`  | **Template** for stack and architectural decisions | Before implementing                              |
+| `sdd/conventions.md`   | **Template** for style, naming, and language       | Before writing code                              |
+| `sdd/quality-gates.md` | Definition of Ready/Done, checklist C1–C7          | Before declaring done                            |
+| `sdd/testing.md`       | Testing strategy, TDD, fixtures, coverage          | Before writing tests                             |
+| `sdd/security.md`      | Security, RBAC, PII, compliance                    | Before implementing features with sensitive data |
+| `sdd/delivery.md`      | Commits, PRs, merge, and closure                   | Before delivering                                |
+| `sdd/decisions/`       | ADRs (Architecture Decision Records)               | When architectural or product decisions are made |
+| `sdd/tech-stack.md`    | Technology inventory, versions, MCPs, doc URLs     | Before implementing                              |
+| `sdd/features/`        | Local projects, issues, and specs                  | Source of truth for the SDD flow                 |
 
 Complete `sdd/architecture.md` and `sdd/conventions.md` with this project's concrete stack, conventions, and quality commands.
 

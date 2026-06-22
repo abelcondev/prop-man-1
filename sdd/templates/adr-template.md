@@ -32,9 +32,9 @@ The decision we made. It should be a clear statement.
 ## Discarded alternatives
 
 | Alternative | Why it was not chosen |
-|---|---|
-| Option A | ... |
-| Option B | ... |
+| ----------- | --------------------- |
+| Option A    | ...                   |
+| Option B    | ...                   |
 
 ## Impact on product
 

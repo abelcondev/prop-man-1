@@ -20,10 +20,10 @@ Implementation of [<feature>], based on the approved design in [Issue Design].
 
 ## Impact Analysis
 
-| Module | Action | Exposed contract |
-|---|---|---|
-| `<path-to-module-1>/` | create / modify | ... |
-| `<path-to-module-2>/` | reuse | — |
+| Module                | Action          | Exposed contract |
+| --------------------- | --------------- | ---------------- |
+| `<path-to-module-1>/` | create / modify | ...              |
+| `<path-to-module-2>/` | reuse           | —                |
 
 ## Technical Notes
 
@@ -39,19 +39,19 @@ Implementation of [<feature>], based on the approved design in [Issue Design].
 
 ### Tests derived from R<n>
 
-| Requirement | Acceptance test | Type | Priority |
-|---|---|---|---|
-| R1 | ... | unit / integration | required |
-| R2 | ... | unit / integration | required |
+| Requirement | Acceptance test | Type               | Priority |
+| ----------- | --------------- | ------------------ | -------- |
+| R1          | ...             | unit / integration | required |
+| R2          | ...             | unit / integration | required |
 
 ### BDD Test Plan
 
 Gherkin scenarios approved in [Product] converted into automated or manual acceptance tests.
 
-| Scenario | Given / When / Then | Test type | Status |
-|---|---|---|---|
-| [name] | `Given ... When ... Then ...` | integration / e2e / manual | pending |
-| [name] | `Given ... When ... Then ...` | integration / e2e / manual | pending |
+| Scenario | Given / When / Then           | Test type                  | Status  |
+| -------- | ----------------------------- | -------------------------- | ------- |
+| [name]   | `Given ... When ... Then ...` | integration / e2e / manual | pending |
+| [name]   | `Given ... When ... Then ...` | integration / e2e / manual | pending |
 
 - Reference [Product] issue: `sdd/features/<feature-slug>/product/product-ready/<issue-product>.md`
 
@@ -64,9 +64,9 @@ Gherkin scenarios approved in [Product] converted into automated or manual accep
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation |
-|---|---|---|
-| ... | high/medium/low | ... |
+| Risk | Impact          | Mitigation |
+| ---- | --------------- | ---------- |
+| ...  | high/medium/low | ...        |
 
 ## Dependencies
 
@@ -80,9 +80,9 @@ Gherkin scenarios approved in [Product] converted into automated or manual accep
 
 ## Changelog
 
-| Date | Author | Change | Reason |
-|---|---|---|---|
-| YYYY-MM-DD | Name | Brief description of the change | Why it was made |
+| Date       | Author | Change                          | Reason          |
+| ---------- | ------ | ------------------------------- | --------------- |
+| YYYY-MM-DD | Name   | Brief description of the change | Why it was made |
 
 > Record structural, technical, or scope changes during the issue lifecycle.
 
@@ -91,12 +91,15 @@ Gherkin scenarios approved in [Product] converted into automated or manual accep
 ### Verdict: ✅ Approved / ❌ Rejected
 
 ### Findings
+
 1. ...
 
 ### Traceability R<n> → Test
+
 | Requirement | Test file | Line | Status |
-|-----------|-----------|-------|--------|
-| R1 | ... | ... | ✅ |
+| ----------- | --------- | ---- | ------ |
+| R1          | ...       | ...  | ✅     |
 
 ### Action items (if rejected)
+
 1. ...

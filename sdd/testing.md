@@ -16,12 +16,12 @@ All work is demonstrated with executable evidence, not assertions.
 
 ## 2. Test Types
 
-| Type | What It Validates | Where It Lives | Example |
-|---|---|---|---|
-| **Unit** | Pure logic, functions, utilities | `tests/unit/` or equivalent | `createReservation()` with valid and invalid data |
-| **Integration** | Flows between modules, queries/mutations | `tests/integration/` or equivalent | Auth + create reservation + read reservation |
-| **UI/Component** | Component behavior | `tests/component/` or equivalent | Form validates required fields |
-| **E2E** | Complete user flow | `tests/e2e/` or equivalent | Login → create reservation → view dashboard |
+| Type             | What It Validates                        | Where It Lives                     | Example                                           |
+| ---------------- | ---------------------------------------- | ---------------------------------- | ------------------------------------------------- |
+| **Unit**         | Pure logic, functions, utilities         | `tests/unit/` or equivalent        | `createReservation()` with valid and invalid data |
+| **Integration**  | Flows between modules, queries/mutations | `tests/integration/` or equivalent | Auth + create reservation + read reservation      |
+| **UI/Component** | Component behavior                       | `tests/component/` or equivalent   | Form validates required fields                    |
+| **E2E**          | Complete user flow                       | `tests/e2e/` or equivalent         | Login → create reservation → view dashboard       |
 
 The project defines in `sdd/architecture.md` which types are mandatory and which tools it uses.
 
@@ -46,12 +46,12 @@ Refactor → Improve the code while keeping the test green.
 
 ### Application in SDD
 
-| SDD Phase | TDD Action |
-|---|---|
-| `dev/spec-needed/` → `spec-ready/` | The `tech_specifier` writes the **Test Plan** with acceptance tests for each `R<n>`. |
-| `dev/implementing/` | The `developer` executes red-green-refactor per `R<n>`. |
-| `dev/review/` | The `auditor` verifies that there is one test per `R<n>` and that commits reflect TDD. |
-| `dev/testing/` → `done/` | `init.sh` passes with reported coverage. |
+| SDD Phase                          | TDD Action                                                                             |
+| ---------------------------------- | -------------------------------------------------------------------------------------- |
+| `dev/spec-needed/` → `spec-ready/` | The `tech_specifier` writes the **Test Plan** with acceptance tests for each `R<n>`.   |
+| `dev/implementing/`                | The `developer` executes red-green-refactor per `R<n>`.                                |
+| `dev/review/`                      | The `auditor` verifies that there is one test per `R<n>` and that commits reflect TDD. |
+| `dev/testing/` → `done/`           | `init.sh` passes with reported coverage.                                               |
 
 ### TDD Commits
 
@@ -70,14 +70,15 @@ The `[Dev]` Issue must include a `## Test Plan` section derived directly from th
 ```markdown
 ## Test Plan
 
-| Requirement | Acceptance test | Type | Priority |
-|---|---|---|---|
-| R1 | Create reservation with valid data returns active reservation | integration | mandatory |
-| R2 | Create reservation without customer throws validation error | unit | mandatory |
-| R3 | User without admin role does not see others' reservations | integration | mandatory |
+| Requirement | Acceptance test                                               | Type        | Priority  |
+| ----------- | ------------------------------------------------------------- | ----------- | --------- |
+| R1          | Create reservation with valid data returns active reservation | integration | mandatory |
+| R2          | Create reservation without customer throws validation error   | unit        | mandatory |
+| R3          | User without admin role does not see others' reservations     | integration | mandatory |
 ```
 
 Each test must be:
+
 - **Atomic**: one behavior only.
 - **Independent**: not depend on other tests.
 - **Deterministic**: same result always.
@@ -139,12 +140,12 @@ The project defines in `tests/setup.*` the global mocks needed (navigation, envi
 
 The project defines its thresholds in `sdd/architecture.md` or here. Example:
 
-| Module Type | Minimum Coverage |
-|---|---|
-| Critical (payments, auth, sensitive data) | 100% |
-| Main domain | 70% |
-| Support/utilities | 50% |
-| Pure UI | 30% |
+| Module Type                               | Minimum Coverage |
+| ----------------------------------------- | ---------------- |
+| Critical (payments, auth, sensitive data) | 100%             |
+| Main domain                               | 70%              |
+| Support/utilities                         | 50%              |
+| Pure UI                                   | 30%              |
 
 ### How to Measure
 
@@ -161,11 +162,11 @@ The project defines its thresholds in `sdd/architecture.md` or here. Example:
 Each `R<n>` must map to at least one concrete test. The auditor documents this in the `## Review` section of the `[Dev]` Issue:
 
 ```markdown
-| Requirement | Test file | Line | Status |
-|-----------|-----------|-------|--------|
-| R1 | tests/integration/reservations/create.test.ts | 23 | ✅ |
-| R2 | tests/unit/reservations/validate.test.ts | 41 | ✅ |
-| R3 | tests/integration/reservations/rbac.test.ts | 18 | ✅ |
+| Requirement | Test file                                     | Line | Status |
+| ----------- | --------------------------------------------- | ---- | ------ |
+| R1          | tests/integration/reservations/create.test.ts | 23   | ✅     |
+| R2          | tests/unit/reservations/validate.test.ts      | 41   | ✅     |
+| R3          | tests/integration/reservations/rbac.test.ts   | 18   | ✅     |
 ```
 
 ---
